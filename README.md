@@ -4,9 +4,9 @@ Reporsitory for small university projects. Modul: 'WPFI Office Application Progr
 The course valuation of the course consist of seven individual projects.
 
 ## First Project
-Time Estimated:     3 to 5 hours
-State:              not started
-Actuael Time:       ---
+Time Estimated:     3 to 5 hours <br>
+State:              not started  <br>
+Actuael Time:       ---          <br>
 
 Task:
     Writing a paper about....
