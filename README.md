@@ -1,7 +1,7 @@
 # OfficePythonProgramming
-Reporsitory for for small university projects. Modul: 'WPFI Office Application Programming'
+Reporsitory for small university projects. Modul: 'WPFI Office Application Programming'
 
-The course consist of seven individual projects.
+The course valuation of the course consist of seven individual projects.
 
 ## First Project
 Time Estimated:     3 to 5 hours
