@@ -1,11 +1,14 @@
 # OfficePythonProgramming
 Reporsitory for small university projects. Modul: 'WPFI Office Application Programming'
 
-The course valuation of the course consist of seven individual projects.
+The valuation of the course consist of seven individual projects. 
 
-## First Project
+The database for every project task is: https://github.com/fivethirtyeight/data/tree/master/nutrition-studies
+
+
+## First Project: First Touch
 *Time Estimated:*   3 to 5 hours    <br>
-*Current State:*    not started     <br>
+*Current State:*    In progress     <br>
 *Actuael Time:*     ---             <br>
 
 Task: <br>
