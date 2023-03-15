@@ -9,7 +9,7 @@ The course valuation of the course consist of seven individual projects.
 *Actuael Time:*     ---             <br>
 
 Task: <br>
-    1. Analyse and understand a the structure and content of a choosen dataset.
+    1. Analyse and understand a the structure and content of a choosen dataset. <br>
     2. Write a short report about the dataset and the article.
 
     Further explanation coming soon...
