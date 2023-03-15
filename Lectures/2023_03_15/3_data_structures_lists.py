@@ -67,10 +67,5 @@ else:
 
 import random
 dir(random)
-# %%
 
-import random
 random.randint(1, 5)    # edges are included
-
-
-# %%
