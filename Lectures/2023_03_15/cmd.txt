@@ -1,0 +1,2 @@
+ctrg+k+c    comment all selected
+ctrg+k+u    uncomment all selected
