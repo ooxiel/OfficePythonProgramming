@@ -1,8 +1,6 @@
 # Nutrition Sutides P-hacking
 # Andrew Flowers <andrew.flowers@fivethirtyeight.com>
 
-
-
 require(readr)
 require(plyr)
 require(dplyr)
