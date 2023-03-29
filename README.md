@@ -8,7 +8,7 @@ The database for every project task is: https://github.com/fivethirtyeight/data/
 
 ## First Project: First Touch
 *Time Estimated:*   3 to 5 hours    <br>
-*Current State:*    In progress     <br>
+*Current State:*    completed       <br>
 *Actuael Time:*     ---             <br>
 
 Task: <br>
@@ -18,13 +18,14 @@ Task: <br>
     Further explanation coming soon...
 
 ## Second Project
-*Time Estimated:*   ---             <br>
-*Current State:*    not started     <br>
+*Time Estimated:*   5 to 7 hours    <br>
+*Current State:*    completed       <br>
 *Actuael Time:*     ---             <br>
 
 Task: <br>
 
-    Further explanation coming soon...
+    1. Use your given dataset and create an Entity-Relationship-Model (ERM).
+    2. Use the ERM to create an relational SQL-Database.
 
 ## Third Project
 *Time Estimated:*   ---             <br>
