@@ -1,6 +1,6 @@
 '''
 Following Code was used to 
-    1. Create access to local SQL Server Database with odbc
+    1. Access local SQL Server Database via ODBC protocoll
     2. Categorize data with pandas
 '''
 
