@@ -106,6 +106,7 @@ endDate_row = cursor.fetchall()
 categorizeDate(endDate_row,table_survey,'endDateQuartal',pk_survey)
 
 
+
 ##### TABLE basicResultset
 table_basic = 'basicResultset'
 pk_basic = 'basicResultID_pk'
@@ -127,6 +128,8 @@ newColforExistingTable(table_basic, 'unsureCategorie','varchar(20)')
 cursor.execute(f'SELECT unsure FROM {table_basic};')
 unsure_row = cursor.fetchall()
 categorizeVotes(unsure_row,table_basic,'unsureCategorie',pk_basic)
+
+
 
 ##### TABLE extendedResultset
 table_extend = 'extendedResultset'
