@@ -25,8 +25,8 @@ conn = odbc.connect(connect_string)
 cursor = conn.cursor()
 
 # Add column 'sampleSizeCategorie' to table 'survey' -> First drop column 
-cursor.execute("ALTER TABLE survey DROP COLUMN sampleSizeCategorie")
-cursor.execute("ALTER TABLE survey ADD sampleSizeCategorie varchar(20)")
+cursor.execute("ALTER TABLE survey DROP COLUMN sampleSizeCategorie;")
+cursor.execute("ALTER TABLE survey ADD sampleSizeCategorie varchar(20);")
 cursor.commit()
 
 # Select-Statement to select values of sampleSize and fetch them to a list of tuples
@@ -37,7 +37,7 @@ sampleSize_row = cursor.fetchall()
 for I in range(0, len(sampleSize_row)):
        
     if sampleSize_row[I][0] < 1000:
-        cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'low' WHERE surveyID_pk={I+1}''')
+        cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'low' WHERE surveyID_pk={I+1};''')
         cursor.commit()
     elif sampleSize_row[I][0] < 2000:
         cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'medium' WHERE surveyID_pk={I+1};''')
