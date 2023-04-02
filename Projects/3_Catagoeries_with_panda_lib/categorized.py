@@ -23,19 +23,18 @@ conn = odbc.connect(connect_string)
 
 # Create cursor object in database
 cursor = conn.cursor()
+test = cursor.execute('ALTER TABLE survey ADD sampleSizeCategorie VARCHAR(20);')
 
-# ALTER TABLE !!!!!!!!!!!!!!
+cursor.execute('SELECT sampleSize FROM survey;')
+row = cursor.fetchall()
 
-# df = pd.read_sql_query('SELECT sampleSize FROM SURVEY', conn)
 
+
+# Categorie one: sample size 
+
+
+
+# ALTER TABLE !!!!!!!!!!!!!
 
 # cursor.execute(query)
 # cnxn.commit()
-
-
-
-
-
-
-
-

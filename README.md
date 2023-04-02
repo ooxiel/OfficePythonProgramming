@@ -15,7 +15,7 @@ The database for every project task is:
 *Current State:*    completed       <br>
 *Actuael Time:*     4.5 h           <br>
 
-Task: <br>
+<br>
 In the first project the student has to unterstand what the dataset is about. Every dataset is related to an article written by authors of FiveThirtyEight.
 In this case the article was about the acceptans of Robert Mueller and his work as special counsel in the "Report On The Investigation Into Russian Interference In The 2016 Presidential Election".
 
