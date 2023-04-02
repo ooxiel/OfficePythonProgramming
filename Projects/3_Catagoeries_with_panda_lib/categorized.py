@@ -58,28 +58,39 @@ cursor.execute('SELECT DAY(startDate),MONTH(startDate) FROM survey')
 
 startDate_row = cursor.fetchall()
 
-q1_start = dt.date(2000,1,1)
-q1_end = dt.date(2000,3,31)
-
-q2_start = dt.date(2000,4,1)
-q2_end = dt.date(2000,6,30)
-
-q3_start = dt.date(2000, 7,1)
-q3_end = dt.date(2000, 9, 30)
-
-q4_start = dt.date(2000, 10,1)
-q4_end = dt.date(2000, 12, 31)
 
 for K in range (0, len(startDate_row)):
-    if q1_start.day <= startDate_row[K][0] <= q1_end.day and q1_start.month <= startDate_row[K][1] <= q1_start.month:
+    if (1 <= startDate_row[K][0] <= 31) and (1 <= startDate_row[K][1] <= 3):
         cursor.execute(f'''UPDATE survey SET startDateQuartal = 'Q1' WHERE surveyID_pk={K+1};''')
         cursor.commit()
-    elif q2_start.day <= startDate_row[K][0] <= q2_end.day and q2_start.month <= startDate_row[K][1] <= q2_start.month:
+    elif (1 <= startDate_row[K][0] <= 31) and (4 <= startDate_row[K][1] <= 6):
         cursor.execute(f'''UPDATE survey SET startDateQuartal = 'Q2' WHERE surveyID_pk={K+1};''')
         cursor.commit()
-    elif q3_start.day <= startDate_row[K][0] <= q3_end.day and q3_start.month <= startDate_row[K][1] <= q3_start.month:
+    elif (1 <= startDate_row[K][0] <= 31) and (7 <= startDate_row[K][1] <= 9):
         cursor.execute(f'''UPDATE survey SET startDateQuartal = 'Q3' WHERE surveyID_pk={K+1};''')
         cursor.commit()
-    elif q4_start.day <= startDate_row[K][0] <= q4_end.day and q4_start.month <= startDate_row[K][1] <= q4_start.month:
+    elif (1<= startDate_row[K][0] <= 31) and (10 <= startDate_row[K][1] <= 12):
         cursor.execute(f'''UPDATE survey SET startDateQuartal = 'Q4' WHERE surveyID_pk={K+1};''')
+        cursor.commit()
+
+cursor.execute("ALTER TABLE survey DROP COLUMN IF EXISTS endDateQuartal;")
+cursor.commit()
+cursor.execute("ALTER TABLE survey ADD endDateQuartal varchar(2);")
+cursor.commit()
+cursor.execute('SELECT DAY(endDate),MONTH(endDate) FROM survey')
+
+endDate_row = cursor.fetchall()
+
+for J in range (0, len(endDate_row)):
+    if 1 <= endDate_row[J][0] <= 31 and 1<= endDate_row[J][1] <= 3:
+        cursor.execute(f'''UPDATE survey SET endDateQuartal = 'Q1' WHERE surveyID_pk={J+1};''')
+        cursor.commit()
+    elif 1 <= endDate_row[J][0] <= 31 and 4 <= endDate_row[J][1] <= 6:
+        cursor.execute(f'''UPDATE survey SET endDateQuartal = 'Q2' WHERE surveyID_pk={J+1};''')
+        cursor.commit()
+    elif 1 <= endDate_row[J][0] <= 31 and 7 <= endDate_row[J][1] <= 9:
+        cursor.execute(f'''UPDATE survey SET endDateQuartal = 'Q3' WHERE surveyID_pk={J+1};''')
+        cursor.commit()
+    elif 1 <= endDate_row[J][0] <= 31 and 10 <= endDate_row[J][1] <= 12:
+        cursor.execute(f'''UPDATE survey SET endDateQuartal = 'Q4' WHERE surveyID_pk={J+1};''')
         cursor.commit()
