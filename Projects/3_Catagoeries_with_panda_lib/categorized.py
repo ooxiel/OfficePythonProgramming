@@ -23,18 +23,25 @@ conn = odbc.connect(connect_string)
 
 # Create cursor object in database
 cursor = conn.cursor()
-test = cursor.execute('ALTER TABLE survey ADD sampleSizeCategorie VARCHAR(20);')
 
+# Add column 'sampleSizeCategorie' to table 'survey' -> First drop column 
+cursor.execute("ALTER TABLE survey DROP COLUMN sampleSizeCategorie")
+cursor.execute("ALTER TABLE survey ADD sampleSizeCategorie varchar(20)")
+cursor.commit()
+
+# Select-Statement to select values of sampleSize and fetch them to a list of tuples
 cursor.execute('SELECT sampleSize FROM survey;')
-row = cursor.fetchall()
+sampleSize_row = cursor.fetchall()
 
-
-
-# Categorie one: sample size 
-
-
-
-# ALTER TABLE !!!!!!!!!!!!!
-
-# cursor.execute(query)
-# cnxn.commit()
+# categorize sampleSize
+for I in range(0, len(sampleSize_row)):
+       
+    if sampleSize_row[I][0] < 1000:
+        cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'low' WHERE surveyID_pk={I+1}''')
+        cursor.commit()
+    elif sampleSize_row[I][0] < 2000:
+        cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'medium' WHERE surveyID_pk={I+1};''')
+        cursor.commit()
+    elif sampleSize_row[I][0] >= 2000:
+        cursor.execute(f'''UPDATE survey SET sampleSizeCategorie = 'high' WHERE surveyID_pk={I+1};''')
+        cursor.commit()
