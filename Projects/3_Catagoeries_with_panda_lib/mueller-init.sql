@@ -31,26 +31,26 @@ GO
 -- ============================================ --
 --					TABLES
 -- ============================================ --
--- @TABLE		pollster
--- @CONTENT		contains names of organizations, that did the surveys
+-- @TABLE		dim_questionnaire
+-- @CONTENT		contains question asked in surveys
 -- @ADDITIONS	check if table named 'polls' already exists in database
 --				Yes	-> DROP given TABLE by name
 --				NO	-> Nothinghappens, just create table afterwards
 --				statement was used for all database related tables, just for first init
 
 IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_NAME = 'questionnaire')
-	DROP TABLE polls
+			WHERE TABLE_NAME = 'dim_questionnaire')
+	DROP TABLE dim_questionnaire
 GO
 
-CREATE TABLE mueller.dbo.questionnaire(
+CREATE TABLE mueller.dbo.dim_questionnaire(
   textID_pk INTEGER IDENTITY (1,1),
   text   VARCHAR(510) NOT NULL,
 
   PRIMARY KEY (textID_pk)
 );
 
-INSERT INTO questionnaire (text)
+INSERT INTO dim_questionnaire (text)
 VALUES	
 	('Do you approve or disapprove of the way Robert Mueller is handling his job as special counsel?'),
 	('As you may know, the U.S. Department of Justice appointed Robert Mueller as the special counsel to investigate any alleged coordination between the Russian government and Donald Trumps 2016 presidential campaign. Based on what you know, do you approve or disapprove of the way Robert Mueller is handling his job as special counsel?'),
@@ -69,23 +69,23 @@ VALUES
 	('Do you approve or disapprove of the way Robert Mueller handled the investigation into Russian interference in the 2016 election?');
 
 -- ============================================ --
--- @TABLE		pollster
+-- @TABLE		dim_pollster
 -- @CONTENT		contains names of organizations, that did the surveys
 -- @ADDITIONS	
 
 IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_NAME = 'pollster')
-	DROP TABLE polls
+			WHERE TABLE_NAME = 'dim_pollster')
+	DROP TABLE dim_pollster
 GO
 
-CREATE TABLE mueller.dbo.pollster(
+CREATE TABLE mueller.dbo.dim_pollster(
     pollsterID_pk	INTEGER IDENTITY(1,1),
 	organization	VARCHAR(255),
 	
     PRIMARY KEY (pollsterID_pk)
 );
 
-INSERT INTO pollster (organization) 
+INSERT INTO dim_pollster (organization) 
 VALUES
 	('CNN/SSRS'),
 	('Fox News'),
@@ -98,13 +98,33 @@ VALUES
 	('YouGov/HuffPost');
 
 -- ============================================ --
+-- @TABLE		dim_characteristicVoters
+-- @CONTENT		contains names of organizations, that did the surveys
+-- @ADDITIONS	
+
+IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_NAME = 'dim_characteristicVoters')
+	DROP TABLE dim_characteristicVoters
+GO
+
+CREATE TABLE dim_characteristicVoters(
+	characteristicVoters_pk		INTEGER IDENTITY(1,1),
+	votersType					VARCHAR(100),
+);
+
+INSERT INTO dim_characteristicVoters (votersType)
+VALUES
+	('adults'),
+	('registered voters');
+
+-- ============================================ --
 -- @TABLE		survey
 -- @CONTENT		contains general information about survey like, start, end, sampleSize ...
 -- @ADDITIONS	use as main table
 
 IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
 			WHERE TABLE_NAME = 'survey')
-	DROP TABLE polls
+	DROP TABLE survey
 GO
 
 CREATE TABLE survey(
@@ -113,89 +133,94 @@ CREATE TABLE survey(
   startDate     DATE  NOT NULL,
   endDate       DATE  NOT NULL,
   sampleSize	INTEGER  NOT NULL,
-  population	VARCHAR(2) NOT NULL,
+  population	TINYINT NOT NULL,
   pollsterID_fk	INTEGER NOT NULL,
   textID_fk		INTEGER NOT NULL,
 
   PRIMARY KEY(surveyID_pk),
-  FOREIGN KEY(pollsterID_fk) REFERENCES pollster(pollsterID_pk),
-  FOREIGN KEY(textID_fk) REFERENCES questionnaire(textID_pk)
+  FOREIGN KEY(pollsterID_fk) REFERENCES dim_pollster(pollsterID_pk),
+  FOREIGN KEY(textID_fk) REFERENCES dim_questionnaire(textID_pk)
 );
 
 INSERT INTO survey (url, startDate, endDate, sampleSize, population, pollsterID_fk, textID_fk)
 VALUES
-	('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/7hxorevceh/econTabReport.pdf','2018-07-15','2017-07-17',1500,'a',8,1),
-    ('https://morningconsult.com/wp-content/uploads/2017/07/170708_crosstabs_Politico_v1_TB.pdf','2017-07-20','2017-07-24',3981,'rv',4,2),
-    ('http://big.assets.huffingtonpost.com/tabsHPRussiaIndictments20171030.pdf','2017-10-30','2017-10-31',1000,'a',9,3),
-    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2017/11/16/3d2002d2-bff7-11e7-9294-705f80164f6e_page.html','2017-10-29','2017-11-01',1005,'a',6,4),
-    ('http://big.assets.huffingtonpost.com/tabsHPMichaelFlynn20171201.pdf','2017-12-01','2017-12-02',1000,'a',9,3),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/jhdmzhxe6k/econTabReport.pdf','2017-12-03','2017-12-05',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2017/images/12/21/rel12c.-.russia.pdf','2017-12-14','2017-12-17',1001,'a',1,5),
-    ('http://cdn.cnn.com/cnn/2018/images/01/23/rel1f.-.russia.pdf','2018-01-14','2018-01-18',1005,'a',1,5),
-    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2018/01/29/27f3887a-fe68-11e7-9b5d-bbf0da31214d_page.html','2018-01-15','2018-01-18',1005,'a',6,6),
-    ('http://big.assets.huffingtonpost.com/tabsHPRussiainvestigation20180123.pdf','2018-01-23','2018-01-24',1000,'a',9,3),
-    ('http://big.assets.huffingtonpost.com/tabsHPMuellerinvestigation20180126.pdf','2018-01-26','2018-01-27',1000,'a',9,3),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/81kgdte5zw/econTabReport.pdf','2018-01-28','2018-01-30',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/57yxejgrmo/econTabReport.pdf','2018-02-18','2018-02-20',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/02/26/rel3c.-.russia.pdf','2018-02-20','2018-02-23',1016,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/y3tke5cxwy/econTabReport.pdf','2018-03-10','2018-03-13',1500,'a',8,1),
-    ('https://morningconsult.com/wp-content/uploads/2018/03/180322_crosstabs_POLITICO_v1_DK.pdf','2018-03-15','2018-03-19',1994,'rv',4,7),
-    ('https://cdn.cnn.com/cnn/2018/images/03/27/rel4b-north.korea2c.russia.pdf','2018-03-22','2018-03-25',1014,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/4l31gznvf1/econTabReport.pdf','2018-04-15','2018-04-17',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/05/10/rel5f.-.russia.pdf','2018-05-02','2018-05-05',1015,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/kwgrow0dna/econTabReport.pdf','2018-05-06','2018-05-08',1500,'a',8,1),
-    ('https://big.assets.huffingtonpost.com/athena/files/2018/05/15/5afb49bbe4b0a59b4dfe6ddd.pdf','2018-05-10','2018-05-12',1000,'a',9,3),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/v00h5ts0qm/econTabReport.pdf','2018-05-27','2018-05-29',1500,'a',8,1),
-    ('https://www.foxnews.com/politics/fox-news-poll-results-6-14-18','2018-06-03','2018-06-06',1001,'rv',2,8),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/0kj6rhpqso/econTabReport.pdf','2018-06-10','2018-06-12',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/06/21/rel6f.-.russia.investigation.pdf','2018-06-14','2018-06-17',1012,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/rbrysksiud/econTabReport.pdf','2018-06-17','2018-06-19',1500,'a',8,1),
-    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2018/07/11/09a17592-8123-11e8-b3b5-b61896f90919_page.html','2018-06-27','2018-07-02',1473,'a',8,9),
-    ('https://www.foxnews.com/politics/fox-news-poll-7-12','2018-07-09','2018-07-11',1007,'rv',2,8),
-    ('https://big.assets.huffingtonpost.com/athena/files/2018/07/16/5b4ce38be4b0e7c958fe3ea5.pdf','2018-07-13','2018-07-14',1000,'a',9,3),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/wa3gpxn761/econTabReport.pdf','2018-07-22','2018-07-24',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/fw0vfdqfpc/econTabReport.pdf','2018-07-29','2018-07-31',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/q6cfmfwwh4/econTabReport.pdf','2018-08-05','2018-08-07',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/08/13/rel7a.-.trump2c.russia.pdf','2018-08-09','2018-08-12',1002,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/6ote18t1hm/econTabReport.pdf','2018-08-12','2018-08-14',1500,'a',8,1),
-    ('https://www.foxnews.com/politics/fox-news-poll-8-22','2018-08-19','2018-08-21',1009,'rv',2,8),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/krhk8brhhw/econTabReport.pdf','2018-08-26','2018-08-28',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/22joa4cprz/econTabReport.pdf','2018-09-02','2018-09-04',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/09/11/rel8c.-.russia,.cohen,.impeachment.pdf','2018-09-06','2018-09-09',1003,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/9th9okzc75/econTabReport.pdf','2018-09-16','2018-09-18',1500,'a',8,1),
-    ('https://www.foxnews.com/politics/fox-news-poll-9-23','2018-09-16','2018-09-19',1003,'rv',2,8),
-    ('http://cdn.cnn.com/cnn/2018/images/10/11/rel9c.-.trump.and.russia.pdf','2018-10-04','2018-10-07',1009,'a',1,5),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/yoolhxrark/econTabReport.pdf','2018-12-02','2018-12-04',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2018/images/12/10/rel12a.-.trump.and.russia.pdf','2018-12-06','2018-12-09',1015,'a',1,5),
-    ('https://www.foxnews.com/politics/fox-news-poll-document-12-12-18','2018-12-09','2018-12-11',1006,'rv',2,8),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/ppsei7g0oq/econTabReport.pdf','2018-12-09','2018-12-11',1500,'a',8,1),
-    ('https://poll.qu.edu/national/release-detail?ReleaseID=2591','2018-12-12','2018-12-17',1147,'rv',5,10),
-    ('https://www.foxnews.com/politics/fox-news-poll-document-1-23-19','2019-01-20','2019-01-22',1008,'rv',2,8),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/183c0vbnai/econTabReport.pdf','2019-01-20','2019-01-22',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2019/images/02/07/rel2c.-.russia.pdf','2019-01-30','2019-02-02',1011,'a',1,5),
-    ('https://big.assets.huffingtonpost.com/athena/files/2019/02/13/5c6446b4e4b08da0ec8141f3.pdf','2019-02-07','2019-02-08',1000,'a',9,3),
-    ('https://drive.google.com/file/d/1JWqPDt4hMKpZ9hpCAq2pzrOZki-NwSHN/view','2019-02-06','2019-02-10',841,'a',8,11),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/oo6kz6sf4b/econTabReport.pdf','2019-02-24','2019-02-26',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/9d5s05pspt/econTabReport.pdf','2019-03-03','2019-03-05',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2019/images/03/20/rel4c.-.trump.and.russia.pdf','2019-03-14','2019-03-17',1003,'a',1,5),
-    ('https://www.foxnews.com/politics/fox-news-poll-3-24-2019','2019-03-17','2019-03-20',1002,'rv',2,8),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/6ujvi5p8z1/econTabReport.pdf','2019-03-24','2019-03-26',1500,'a',8,1),
-    ('http://maristpoll.marist.edu/wp-content/uploads/2019/03/NPR_PBS-NewsHour_Marist-Poll_USA-NOS-and-Tables_1903251153.pdf','2019-03-25','2019-03-27',938,'a',3,12),
-    ('https://big.assets.huffingtonpost.com/athena/files/2019/03/28/5c9d2beee4b00ba632795d13.pdf','2019-03-25','2019-03-27',1000,'a',9,3),
-    ('https://www.washingtonpost.com/page/2010-2019/WashingtonPost/2019/03/30/National-Politics/Polling/question_21323.xml','2019-03-26','2019-03-29',640,'a',8,13),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/t1fl59zsim/econTabReport.pdf','2019-03-31','2019-04-02',1500,'a',8,1),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/egvqvgp5a7/econTabReport.pdf','2019-04-13','2019-04-16',1500,'a',8,1),
-    ('https://big.assets.huffingtonpost.com/athena/files/2019/04/22/5cbe11f6e4b0f7a84a73723d.pdf','2019-04-18','2019-04-19',1000,'a',9,14),
-    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/75p17530i6/econTabReport.pdf','2019-04-21','2019-04-23',1500,'a',8,1),
-    ('http://cdn.cnn.com/cnn/2019/images/04/30/rel6c.-.mueller.report.pdf','2019-04-25','2019-04-28',1007,'a',1,15),
-    ('http://maristpoll.marist.edu/wp-content/uploads/2019/04/NPR_PBS-NewsHour_Marist-Poll_USA-NOS-and-Tables_1904301401.pdf','2019-04-24','2019-04-29',1017,'a',3,12);
+	('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/7hxorevceh/econTabReport.pdf','2018-07-15','2017-07-17',1500,1,8,1),
+    ('https://morningconsult.com/wp-content/uploads/2017/07/170708_crosstabs_Politico_v1_TB.pdf','2017-07-20','2017-07-24',3981,2,4,2),
+    ('http://big.assets.huffingtonpost.com/tabsHPRussiaIndictments20171030.pdf','2017-10-30','2017-10-31',1000,1,9,3),
+    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2017/11/16/3d2002d2-bff7-11e7-9294-705f80164f6e_page.html','2017-10-29','2017-11-01',1005,1,6,4),
+    ('http://big.assets.huffingtonpost.com/tabsHPMichaelFlynn20171201.pdf','2017-12-01','2017-12-02',1000,1,9,3),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/jhdmzhxe6k/econTabReport.pdf','2017-12-03','2017-12-05',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2017/images/12/21/rel12c.-.russia.pdf','2017-12-14','2017-12-17',1001,1,1,5),
+    ('http://cdn.cnn.com/cnn/2018/images/01/23/rel1f.-.russia.pdf','2018-01-14','2018-01-18',1005,1,1,5),
+    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2018/01/29/27f3887a-fe68-11e7-9b5d-bbf0da31214d_page.html','2018-01-15','2018-01-18',1005,1,6,6),
+    ('http://big.assets.huffingtonpost.com/tabsHPRussiainvestigation20180123.pdf','2018-01-23','2018-01-24',1000,1,9,3),
+    ('http://big.assets.huffingtonpost.com/tabsHPMuellerinvestigation20180126.pdf','2018-01-26','2018-01-27',1000,1,9,3),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/81kgdte5zw/econTabReport.pdf','2018-01-28','2018-01-30',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/57yxejgrmo/econTabReport.pdf','2018-02-18','2018-02-20',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/02/26/rel3c.-.russia.pdf','2018-02-20','2018-02-23',1016,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/y3tke5cxwy/econTabReport.pdf','2018-03-10','2018-03-13',1500,1,8,1),
+    ('https://morningconsult.com/wp-content/uploads/2018/03/180322_crosstabs_POLITICO_v1_DK.pdf','2018-03-15','2018-03-19',1994,2,4,7),
+    ('https://cdn.cnn.com/cnn/2018/images/03/27/rel4b-north.korea2c.russia.pdf','2018-03-22','2018-03-25',1014,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/4l31gznvf1/econTabReport.pdf','2018-04-15','2018-04-17',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/05/10/rel5f.-.russia.pdf','2018-05-02','2018-05-05',1015,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/kwgrow0dna/econTabReport.pdf','2018-05-06','2018-05-08',1500,1,8,1),
+    ('https://big.assets.huffingtonpost.com/athena/files/2018/05/15/5afb49bbe4b0a59b4dfe6ddd.pdf','2018-05-10','2018-05-12',1000,1,9,3),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/v00h5ts0qm/econTabReport.pdf','2018-05-27','2018-05-29',1500,1,8,1),
+    ('https://www.foxnews.com/politics/fox-news-poll-results-6-14-18','2018-06-03','2018-06-06',1001,2,2,8),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/0kj6rhpqso/econTabReport.pdf','2018-06-10','2018-06-12',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/06/21/rel6f.-.russia.investigation.pdf','2018-06-14','2018-06-17',1012,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/rbrysksiud/econTabReport.pdf','2018-06-17','2018-06-19',1500,1,8,1),
+    ('https://www.washingtonpost.com/politics/polling/department-justice-mueller-russian/2018/07/11/09a17592-8123-11e8-b3b5-b61896f90919_page.html','2018-06-27','2018-07-02',1473,1,8,9),
+    ('https://www.foxnews.com/politics/fox-news-poll-7-12','2018-07-09','2018-07-11',1007,2,2,8),
+    ('https://big.assets.huffingtonpost.com/athena/files/2018/07/16/5b4ce38be4b0e7c958fe3ea5.pdf','2018-07-13','2018-07-14',1000,1,9,3),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/wa3gpxn761/econTabReport.pdf','2018-07-22','2018-07-24',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/fw0vfdqfpc/econTabReport.pdf','2018-07-29','2018-07-31',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/q6cfmfwwh4/econTabReport.pdf','2018-08-05','2018-08-07',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/08/13/rel7a.-.trump2c.russia.pdf','2018-08-09','2018-08-12',1002,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/6ote18t1hm/econTabReport.pdf','2018-08-12','2018-08-14',1500,1,8,1),
+    ('https://www.foxnews.com/politics/fox-news-poll-8-22','2018-08-19','2018-08-21',1009,2,2,8),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/krhk8brhhw/econTabReport.pdf','2018-08-26','2018-08-28',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/22joa4cprz/econTabReport.pdf','2018-09-02','2018-09-04',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/09/11/rel8c.-.russia,.cohen,.impeachment.pdf','2018-09-06','2018-09-09',1003,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/9th9okzc75/econTabReport.pdf','2018-09-16','2018-09-18',1500,1,8,1),
+    ('https://www.foxnews.com/politics/fox-news-poll-9-23','2018-09-16','2018-09-19',1003,2,2,8),
+    ('http://cdn.cnn.com/cnn/2018/images/10/11/rel9c.-.trump.and.russia.pdf','2018-10-04','2018-10-07',1009,1,1,5),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/yoolhxrark/econTabReport.pdf','2018-12-02','2018-12-04',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2018/images/12/10/rel12a.-.trump.and.russia.pdf','2018-12-06','2018-12-09',1015,1,1,5),
+    ('https://www.foxnews.com/politics/fox-news-poll-document-12-12-18','2018-12-09','2018-12-11',1006,2,2,8),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/ppsei7g0oq/econTabReport.pdf','2018-12-09','2018-12-11',1500,1,8,1),
+    ('https://poll.qu.edu/national/release-detail?ReleaseID=2591','2018-12-12','2018-12-17',1147,2,5,10),
+    ('https://www.foxnews.com/politics/fox-news-poll-document-1-23-19','2019-01-20','2019-01-22',1008,2,2,8),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/183c0vbnai/econTabReport.pdf','2019-01-20','2019-01-22',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2019/images/02/07/rel2c.-.russia.pdf','2019-01-30','2019-02-02',1011,1,1,5),
+    ('https://big.assets.huffingtonpost.com/athena/files/2019/02/13/5c6446b4e4b08da0ec8141f3.pdf','2019-02-07','2019-02-08',1000,1,9,3),
+    ('https://drive.google.com/file/d/1JWqPDt4hMKpZ9hpCAq2pzrOZki-NwSHN/view','2019-02-06','2019-02-10',841,1,8,11),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/oo6kz6sf4b/econTabReport.pdf','2019-02-24','2019-02-26',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/9d5s05pspt/econTabReport.pdf','2019-03-03','2019-03-05',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2019/images/03/20/rel4c.-.trump.and.russia.pdf','2019-03-14','2019-03-17',1003,1,1,5),
+    ('https://www.foxnews.com/politics/fox-news-poll-3-24-2019','2019-03-17','2019-03-20',1002,2,2,8),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/6ujvi5p8z1/econTabReport.pdf','2019-03-24','2019-03-26',1500,1,8,1),
+    ('http://maristpoll.marist.edu/wp-content/uploads/2019/03/NPR_PBS-NewsHour_Marist-Poll_USA-NOS-and-Tables_1903251153.pdf','2019-03-25','2019-03-27',938,1,3,12),
+    ('https://big.assets.huffingtonpost.com/athena/files/2019/03/28/5c9d2beee4b00ba632795d13.pdf','2019-03-25','2019-03-27',1000,1,9,3),
+    ('https://www.washingtonpost.com/page/2010-2019/WashingtonPost/2019/03/30/National-Politics/Polling/question_21323.xml','2019-03-26','2019-03-29',640,1,8,13),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/t1fl59zsim/econTabReport.pdf','2019-03-31','2019-04-02',1500,1,8,1),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/egvqvgp5a7/econTabReport.pdf','2019-04-13','2019-04-16',1500,1,8,1),
+    ('https://big.assets.huffingtonpost.com/athena/files/2019/04/22/5cbe11f6e4b0f7a84a73723d.pdf','2019-04-18','2019-04-19',1000,1,9,14),
+    ('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/75p17530i6/econTabReport.pdf','2019-04-21','2019-04-23',1500,1,8,1),
+    ('http://cdn.cnn.com/cnn/2019/images/04/30/rel6c.-.mueller.report.pdf','2019-04-25','2019-04-28',1007,1,1,15),
+    ('http://maristpoll.marist.edu/wp-content/uploads/2019/04/NPR_PBS-NewsHour_Marist-Poll_USA-NOS-and-Tables_1904301401.pdf','2019-04-24','2019-04-29',1017,1,3,12);
 	
 -- ============================================ --
 -- @TABLE		basicResultset
 -- @CONTENT		contains all generealized results of one survey
 -- @ADDITIONS	special, a resultset can not exist without related statistic entry -> if an entry in survey is deleted, it related resultset is deleted as well
 
-CREATE TABLE mueller.dbo.basicResultset(
+IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
+			WHERE TABLE_NAME = 'dim_basicResultset')
+	DROP TABLE dim_basicResultset
+GO
+
+CREATE TABLE mueller.dbo.dim_basicResultset(
   basicResultID_pk  INTEGER IDENTITY (1,1) NOT NULL,
   approve           TINYINT NOT NULL,
   disapprove        TINYINT NOT NULL,
@@ -207,7 +232,7 @@ CREATE TABLE mueller.dbo.basicResultset(
   FOREIGN KEY(surveyID_fk) REFERENCES survey(surveyID_pk) ON DELETE CASCADE
 );
 
-INSERT INTO basicResultset (approve, disapprove, unsure, surveyID_fk)
+INSERT INTO dim_basicResultset (approve, disapprove, unsure, surveyID_fk)
 VALUES
 	(37, 30, 33,1),
     (40, 27, 33, 2),
@@ -280,7 +305,12 @@ VALUES
 -- @CONTENT		contains all specific results of one survey; specific approve of Republican and Democrats
 -- @ADDITIONS	special, a resultset can not exist without related statistic entry -> if an entry in survey is deleted, it related resultset is deleted as well
 
-CREATE TABLE mueller.dbo.extendedResultset(
+IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
+		    WHERE TABLE_NAME = 'dim_extendedResultset')
+	DROP TABLE dim_extendedResultset
+GO
+
+CREATE TABLE mueller.dbo.dim_extendedResultset(
 	extendedResultID_pk INTEGER IDENTITY (1,1) NOT NULL,
 	approveRepublicans	TINYINT NOT NULL,
 	approveDemocrats	TINYINT NOT NULL,
@@ -290,7 +320,7 @@ CREATE TABLE mueller.dbo.extendedResultset(
 	FOREIGN KEY(surveyID_fk) REFERENCES survey(surveyID_pk) ON DELETE CASCADE
 );
 
-INSERT INTO extendedResultset (approveRepublicans, approveDemocrats, surveyID_fk) 
+INSERT INTO dim_extendedResultset (approveRepublicans, approveDemocrats, surveyID_fk) 
 VALUES
 	(17, 62, 1),
     (31, 53, 2),
