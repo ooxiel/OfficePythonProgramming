@@ -24,7 +24,8 @@ To use this code you need to perform the following steps:
     3. Setup Python Environment wird pip install pyodbc
     
     Notice:
-        - Code can is test with Local SQL Server Database and Windows Authentication
+        - Code only fully functional if SQL Server, Driver and Database are setup before
+        - Code is test with Local SQL Server Database and Windows Authentication
         -> other authentication methods or servers were not tested
 
 '''
