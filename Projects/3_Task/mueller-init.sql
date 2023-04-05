@@ -2,13 +2,12 @@
 -- @DATE		2023-04-01
 -- @Version		init Version
 -- @Changelog
---				suffix for primary and foreign keys
+--				suffix for primary and foreign keys -> _pk; _fk
 --				table name of 'statistics' changed to 'survey'
 --				surrogate key for survey added
 --				surrogate key for pollster added
 --				split resultset into basic and extended
 --				rewrite from MySQL to T-Sql
-
 
 -- ============================================ --
 --					DATABASE
@@ -108,8 +107,10 @@ IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
 GO
 
 CREATE TABLE dim_characteristicVoters(
-	characteristicVoters_pk		INTEGER IDENTITY(1,1),
+	characteristicVotersID_pk		INTEGER IDENTITY(1,1),
 	votersType					VARCHAR(100),
+
+	PRIMARY KEY (characteristicVotersID_pk)
 );
 
 INSERT INTO dim_characteristicVoters (votersType)
@@ -132,17 +133,18 @@ CREATE TABLE survey(
   url			VARCHAR(255) NOT NULL,
   startDate     DATE  NOT NULL,
   endDate       DATE  NOT NULL,
-  sampleSize	INTEGER  NOT NULL,
-  population	TINYINT NOT NULL,
+  sampleSize	INTEGER NOT NULL,
+  population_fk	INTEGER NOT NULL,
   pollsterID_fk	INTEGER NOT NULL,
   textID_fk		INTEGER NOT NULL,
 
   PRIMARY KEY(surveyID_pk),
+  FOREIGN KEY (population_fk) REFERENCES dim_characteristicVoters(characteristicVotersID_pk),
   FOREIGN KEY(pollsterID_fk) REFERENCES dim_pollster(pollsterID_pk),
   FOREIGN KEY(textID_fk) REFERENCES dim_questionnaire(textID_pk)
 );
 
-INSERT INTO survey (url, startDate, endDate, sampleSize, population, pollsterID_fk, textID_fk)
+INSERT INTO survey (url, startDate, endDate, sampleSize, population_fk, pollsterID_fk, textID_fk)
 VALUES
 	('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/7hxorevceh/econTabReport.pdf','2018-07-15','2017-07-17',1500,1,8,1),
     ('https://morningconsult.com/wp-content/uploads/2017/07/170708_crosstabs_Politico_v1_TB.pdf','2017-07-20','2017-07-24',3981,2,4,2),

@@ -93,12 +93,12 @@ def categorizeSize(row: list, table: str, columnName: str, primaryKey: str) -> N
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'low')            # get primary key of categorie 'low' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column -> primary key starts with 1 not with 0 -> +1
             cursor.commit() # commit changes
-        elif row[I][0] < 2000:                                                                      # if value in row is smaller than 2000 -> medium
+        elif row[I][0] < 1250:                                                                      # if value in row is smaller than 1250 -> medium
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'medium')         # get primary key of categorie 'medium' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
-        elif row[I][0] >= 2000:                                                                     # if value in row is bigger or equal than 2000 -> high
-            x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'medium')         # get primary key of categorie 'high' from dim_categorieSampleSize
+        elif row[I][0] >= 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
+            x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'high')           # get primary key of categorie 'high' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
         
@@ -141,15 +141,15 @@ def categorizeVotes(row: list, table: str, columnName: str, primaryKey: str) -> 
 
     for J in range (0, len(row)):                                                                   # iterate over row in from 0 to length of row
 
-        if 0 <= row[J][0] < 34:                                                                     # check if given yyvalue is in minority -> row is a list of tuples -> J used to access the J th element of the list -> 0 used to access the first element of the tuple -> only possible because of the structure of the input data
+        if 0 <= row[J][0] <= 50:                                                                     # check if given yyvalue is in minority -> row is a list of tuples -> J used to access the J th element of the list -> 0 used to access the first element of the tuple -> only possible because of the structure of the input data
             x = getPrimary('dim_categorieVotes', 'categorieVotesID_pk', 'minority')                 # get primary key of categorie 'minority' from dim_categorieVotes
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value because of new column -> primary key starts with 1 not with 0 -> +1
             cursor.commit() # commit changes
-        elif 34 <= row[J][0] < 67:                                                                  # check if given value is in indecision                           
-            x = getPrimary('dim_categorieVotes', 'categorieVotesID_pk', 'indecision')               # get primary key of categorie 'indecision' from dim_categorieVotes
+        elif row[J][0] == 50:                                                                       # check if given value is in indecision                           
+            x = getPrimary('dim_categorieVotes', 'categorieVotesID_pk', 'majority')                 # get primary key of categorie 'indecision' from dim_categorieVotes
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
-        elif 67 <= row[J][0] <= 100:                                                                # check if given value is in majority
+        elif 51 <= row[J][0] <= 100:                                                                # check if given value is in majority
             x = getPrimary('dim_categorieVotes', 'categorieVotesID_pk', 'majority')                 # get primary key of categorie 'majority' from dim_categorieVotes
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
