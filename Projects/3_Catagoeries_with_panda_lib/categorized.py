@@ -77,7 +77,7 @@ def insertCategorieValues() -> None:
 def getPrimary(table: str, primary: str, categorie: str) -> int:
     '''used to get primary key of specific categorie table'''
 
-    cursor.execute(f"SELECT {primary} FROM {table} WHERE categorie = '{categorie}'")    # select specified primary key from specified categorie table
+    cursor.execute(f"SELECT {primary} FROM {table} WHERE categorie = '{categorie}'")    # select specified primary key from categorie table
     list = cursor.fetchall()                                                            # fetch all data from cursor to list of tuples
     x = list[0][0]                                                                      # get first element of first tuple in list -> only possible because query returns only one value
     return x                                                                            # return primary key
@@ -88,6 +88,7 @@ def categorizeSize(row: list, table: str, columnName: str, primaryKey: str) -> N
     cursor.commit() # commit changes
 
     for I in range(0, len(row)):                                                                    # iterate over all rows from 0 to length of row
+
         if row[I][0] < 1000:                                                                        # if value in row is smaller than 1000 -> low
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'low')            # get primary key of categorie 'low' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column -> primary key starts with 1 not with 0 -> +1
@@ -110,7 +111,8 @@ def categorizeDate(row: list, table: str, columnName: str, primaryKey: str) -> N
     cursor.execute(f'''ALTER TABLE {table} ADD {columnName} INTEGER;''') # add new column to table
     cursor.commit() # commit changes
 
-    for J in range (0, len(row)):                                                                   # iterate over row in from 0 to length of row
+    for J in range (0, len(row)):                                                                   # iterate over row in from 0 to length of row 
+
         if 1 <= row[J][0] <= 31 and 1 <= row[J][1] <= 3:                                            # check if day is in first quarter and month is in first quarter -> row is a list of tuples -> J used to access the J th element of the list -> 0 used to access the first element of the tuple -> only possible because of the structure of the input data
             x = getPrimary('dim_categorieDate', 'categorieDateID_pk', '1. quarter')                 # get primary key of 1. quarter in categorie table
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value -> primary key starts with 1 not with 0 -> +1
@@ -138,6 +140,7 @@ def categorizeVotes(row: list, table: str, columnName: str, primaryKey: str) -> 
     cursor.commit() # commit changes
 
     for J in range (0, len(row)):                                                                   # iterate over row in from 0 to length of row
+
         if 0 <= row[J][0] < 34:                                                                     # check if given yyvalue is in minority -> row is a list of tuples -> J used to access the J th element of the list -> 0 used to access the first element of the tuple -> only possible because of the structure of the input data
             x = getPrimary('dim_categorieVotes', 'categorieVotesID_pk', 'minority')                 # get primary key of categorie 'minority' from dim_categorieVotes
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value because of new column -> primary key starts with 1 not with 0 -> +1
