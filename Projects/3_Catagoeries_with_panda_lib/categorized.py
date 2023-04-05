@@ -156,11 +156,11 @@ def categorizeVotes(row: list, table: str, columnName: str, primaryKey: str) -> 
 
 ''' Call setup functions '''
 
-connection = connect() # connect to database
-cursor = connection.cursor() # create cursor object -> cursor is used to execute SQL statements
+connection = connect()          # connect to database
+cursor = connection.cursor()    # create cursor object -> cursor is used to execute SQL statements
 
-createCategorieTables() # create tables
-insertCategorieValues() # insert values
+createCategorieTables()         # create tables
+insertCategorieValues()         # insert values
 
 '''Call categorize functions for survey table'''
 
