@@ -2,11 +2,11 @@ import os
 
 # Pfad zum genutzten Verzeichnis 
 
-path = "C:\\user\\becke\\documents\\python\\Projects"
+path = "C:\\Users\\becke\\OfficePythonProgramming\\Projects\\3_Task"
 
 # Name des neuen Ordners
 
-dir_name = "Task_3"  
+dir_name = "business_structure"
 
 try:
 

@@ -67,7 +67,7 @@ def createCategorieTables() -> None:
 def insertCategorieValues() -> None:
     '''used to insert categorie values into categorie tables -> categorie tables need to be created before'''
 
-    cursor.execute(f''' INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high')''')                            # insert new entry into categorie table
+    cursor.execute(f''' INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high'), ('runaway')''') # insert new entry into categorie table
     cursor.commit() # commit changes
     cursor.execute(f''' INSERT INTO dim_categorieDate (categorie) VALUES ('1. quarter'), ('2. quarter'), ('3. quarter'), ('4. quarter')''') # insert new entry into categorie table
     cursor.commit() # commit changes
@@ -97,8 +97,13 @@ def categorizeSize(row: list, table: str, columnName: str, primaryKey: str) -> N
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'medium')         # get primary key of categorie 'medium' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
-        elif row[I][0] >= 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
+        elif row[I][0] <= 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'high')           # get primary key of categorie 'high' from dim_categorieSampleSize
+            cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
+            cursor.commit() # commit changes
+        
+        elif row[I][0] > 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
+            x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'runaway')           # get primary key of categorie 'high' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
         

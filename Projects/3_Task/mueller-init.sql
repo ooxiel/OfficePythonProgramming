@@ -144,7 +144,7 @@ CREATE TABLE fact_survey(
   FOREIGN KEY(textID_fk) REFERENCES dim_questionnaire(textID_pk)
 );
 
-INSERT INTO survey (url, startDate, endDate, sampleSize, population_fk, pollsterID_fk, textID_fk)
+INSERT INTO fact_survey (url, startDate, endDate, sampleSize, population_fk, pollsterID_fk, textID_fk)
 VALUES
 	('https://d25d2506sfb94s.cloudfront.net/cumulus_uploads/document/7hxorevceh/econTabReport.pdf','2018-07-15','2017-07-17',1500,1,8,1),
     ('https://morningconsult.com/wp-content/uploads/2017/07/170708_crosstabs_Politico_v1_TB.pdf','2017-07-20','2017-07-24',3981,2,4,2),
