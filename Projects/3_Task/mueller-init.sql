@@ -124,11 +124,11 @@ VALUES
 -- @ADDITIONS	use as main table
 
 IF EXISTS (	SELECT * FROM INFORMATION_SCHEMA.TABLES
-			WHERE TABLE_NAME = 'survey')
-	DROP TABLE survey
+			WHERE TABLE_NAME = 'fact_survey')
+	DROP TABLE fact_survey
 GO
 
-CREATE TABLE survey(
+CREATE TABLE fact_survey(
   surveyID_pk	INTEGER IDENTITY (1,1) NOT NULL,
   url			VARCHAR(255) NOT NULL,
   startDate     DATE  NOT NULL,
@@ -231,7 +231,7 @@ CREATE TABLE mueller.dbo.dim_basicResultset(
   
 
   PRIMARY KEY(basicResultID_pk),
-  FOREIGN KEY(surveyID_fk) REFERENCES survey(surveyID_pk) ON DELETE CASCADE
+  FOREIGN KEY(surveyID_fk) REFERENCES fact_survey(surveyID_pk) ON DELETE CASCADE
 );
 
 INSERT INTO dim_basicResultset (approve, disapprove, unsure, surveyID_fk)
@@ -319,7 +319,7 @@ CREATE TABLE mueller.dbo.dim_extendedResultset(
 	surveyID_fk			INTEGER NOT NULL,
 
 	PRIMARY KEY(extendedResultID_pk),
-	FOREIGN KEY(surveyID_fk) REFERENCES survey(surveyID_pk) ON DELETE CASCADE
+	FOREIGN KEY(surveyID_fk) REFERENCES fact_survey(surveyID_pk) ON DELETE CASCADE
 );
 
 INSERT INTO dim_extendedResultset (approveRepublicans, approveDemocrats, surveyID_fk) 

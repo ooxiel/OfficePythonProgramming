@@ -168,7 +168,7 @@ insertCategorieValues()         # insert values
 '''Call categorize functions for survey table'''
 
 # Config for TABLE -> survey
-table_survey = 'survey'                                                             # name of table -> survey
+table_survey = 'fact_survey'                                                             # name of table -> survey
 pk_survey = 'surveyID_pk'                                                           # primary key of table -> surveyID_pk                   
 
 #       sampleSize
@@ -202,11 +202,6 @@ categorizeVotes(approve_row,table_basic,'approveCategorie_fk',pk_basic)         
 cursor.execute(f'SELECT disapprove FROM {table_basic};')                            # get disapprove column from table basicResultset       
 disapprove_row = cursor.fetchall()                                                  # fetch all rows -> list of tuples
 categorizeVotes(disapprove_row,table_basic,'disapproveCategorie_fk',pk_basic)       # categorize disapprove
-
-#       unsure column
-cursor.execute(f'SELECT unsure FROM {table_basic};')                                # get unsure column from table basicResultset
-unsure_row = cursor.fetchall()                                                      # fetch all rows -> list of tuples
-categorizeVotes(unsure_row,table_basic,'unsureCategorie_fk',pk_basic)               # categorize unsure
 
 '''Call categorize functions for dim_extendedResultset table'''
 
