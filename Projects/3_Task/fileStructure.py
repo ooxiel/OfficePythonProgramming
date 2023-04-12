@@ -1,24 +1,26 @@
+''''
+Code is used to create a folder structure for the project 'business_structure'.
+'''
+
 import os  
 
-# Pfad zum genutzten Verzeichnis 
-
+# path to the folder where the new folder will be created
 path = "C:\\Users\\becke\\OfficePythonProgramming\\Projects\\3_Task"
 
-# Name des neuen Ordners
-
+# name of the new folder
 dir_name = "business_structure"
 
+# try to create the new folder -> if it already exists, print an error message
 try:
+    
+    os.mkdir(os.path.join(path, dir_name))                  # create the new folder     
+    print("Folder create:", os.path.join(path, dir_name))   # success message
 
-    # Neuen Ordner erstellen 
-    os.mkdir(os.path.join(path, dir_name))     
-    print("Ordner erstellt:", os.path.join(path, dir_name))
-
-    os.mkdir(os.path.join(path, dir_name, "it_data")) # Unterordner erstellen   
-    os.mkdir(os.path.join(path, dir_name, "documentation")) # Unterordner erstellen     
-    os.mkdir(os.path.join(path, dir_name, "image")) # Unterordner erstellen     
-    os.mkdir(os.path.join(path, dir_name, "mymodule")) # Unterordner erstellen     
-    os.mkdir(os.path.join(path, dir_name, "src")) # Unterordner erstellen
+    os.mkdir(os.path.join(path, dir_name, "it_data"))       # create subfolder -> 'it_data'   
+    os.mkdir(os.path.join(path, dir_name, "documentation")) # create subfolder -> 'documentation'
+    os.mkdir(os.path.join(path, dir_name, "images"))        # create subfolder -> 'images'
+    os.mkdir(os.path.join(path, dir_name, "mymodule"))      # create subfolder -> 'mymodule'
+    os.mkdir(os.path.join(path, dir_name, "src"))           # create subfolder -> 'src'
 
 except FileExistsError:     
-    print("Der Ordner", os.path.join(path, dir_name), "existiert bereits.") # Fehlermeldung, falls Ordner bereits existiert
+    print("Folder", os.path.join(path, dir_name), "already exists.") # error message

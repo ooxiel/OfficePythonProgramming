@@ -67,7 +67,7 @@ def createCategorieTables() -> None:
 def insertCategorieValues() -> None:
     '''used to insert categorie values into categorie tables -> categorie tables need to be created before'''
 
-    cursor.execute(f''' INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high'), ('runaway')''') # insert new entry into categorie table
+    cursor.execute(f''' INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high')''') # insert new entry into categorie table
     cursor.commit() # commit changes
     cursor.execute(f''' INSERT INTO dim_categorieDate (categorie) VALUES ('1. quarter'), ('2. quarter'), ('3. quarter'), ('4. quarter')''') # insert new entry into categorie table
     cursor.commit() # commit changes
@@ -93,19 +93,15 @@ def categorizeSize(row: list, table: str, columnName: str, primaryKey: str) -> N
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'low')            # get primary key of categorie 'low' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column -> primary key starts with 1 not with 0 -> +1
             cursor.commit() # commit changes
-        elif row[I][0] < 1250:                                                                      # if value in row is smaller than 1250 -> medium
+        elif row[I][0] < 1500:                                                                      # if value in row is smaller than 1250 -> medium
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'medium')         # get primary key of categorie 'medium' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
-        elif row[I][0] <= 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
+        elif row[I][0] >= 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
             x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'high')           # get primary key of categorie 'high' from dim_categorieSampleSize
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
             cursor.commit() # commit changes
-        
-        elif row[I][0] > 1500:                                                                     # if value in row is bigger or equal than 1500 -> high
-            x = getPrimary('dim_categorieSampleSize', 'categorieSampleSizeID_pk', 'runaway')           # get primary key of categorie 'high' from dim_categorieSampleSize
-            cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={I+1};''')  # update table with new value because of new column
-            cursor.commit() # commit changes
+    
         
     cursor.execute(f'''ALTER TABLE {table} ADD FOREIGN KEY ({columnName}) REFERENCES dim_categorieSampleSize(categorieSampleSizeID_pk);''') # add foreign key connection to fact table
     cursor.commit() # commit changes
@@ -121,7 +117,7 @@ def categorizeDate(row: list, table: str, columnName: str, primaryKey: str) -> N
         if 1 <= row[J][0] <= 31 and 1 <= row[J][1] <= 3:                                            # check if day is in first quarter and month is in first quarter -> row is a list of tuples -> J used to access the J th element of the list -> 0 used to access the first element of the tuple -> only possible because of the structure of the input data
             x = getPrimary('dim_categorieDate', 'categorieDateID_pk', '1. quarter')                 # get primary key of 1. quarter in categorie table
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value -> primary key starts with 1 not with 0 -> +1
-
+            cursor.commit() # commit changes
         elif 1 <= row[J][0] <= 31 and 4 <= row[J][1] <= 6:                                          # check if day is in second quarter and month is in second quarter
             x = getPrimary('dim_categorieDate', 'categorieDateID_pk', '2. quarter')                 # get primary key of 2. quarter in categorie table
             cursor.execute(f'''UPDATE {table} SET {columnName} = {x} WHERE {primaryKey}={J+1};''')  # update table with new value 
@@ -189,7 +185,7 @@ categorizeDate(startDate_row,table_survey,'startDateQuartal_fk',pk_survey)      
 #       endDate
 cursor.execute(f'SELECT DAY(endDate),MONTH(endDate) FROM {table_survey};')          # get day and month seperately from endDate column
 endDate_row = cursor.fetchall()                                                     # fetch all rows -> list of tuples
-categorizeDate(endDate_row,table_survey,'endDateQuartal_fk',pk_survey)              # categorize endDate
+categorizeDate(endDate_row,table_survey,'endDateQuartal_fk',pk_survey)              # categorizeD endDate
 
 
 '''Call categorize functions for dim_basicResultset table'''

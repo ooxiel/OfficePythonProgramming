@@ -322,7 +322,7 @@ CREATE TABLE mueller.dbo.dim_extendedResultset(
 	FOREIGN KEY(surveyID_fk) REFERENCES fact_survey(surveyID_pk) ON DELETE CASCADE
 );
 
-INSERT INTO dim_extendedResultset (approveRepublicans, approveDemocrats, surveyID_fk) 
+INSERT INTO dim_extendedResultset (approveRepublicans, approveDemocrats, surveyID_fk)
 VALUES
 	(17, 62, 1),
     (31, 53, 2),
