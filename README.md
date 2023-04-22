@@ -52,10 +52,10 @@ Task: <br>
         After designing the database was setup and filled and referenced with in SQL Server. The related script is written in T-SQL.
 
 ## Third Project: Categorize Data
-*Time Estimated:*   <dd>no time estimate    <br>
+*Time Estimated:*   <dd>no time estimate</dd><br>
 *Current State:*    <dd>completed           <br>
 *Actuael Time:*     <dd>12h                 <br>
-*Reference*         <dd>Projects/3_Task
+*Reference:*        <dd>Projects/3_Task
 
 Task: <br>
 
