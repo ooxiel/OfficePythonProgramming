@@ -7,8 +7,16 @@ The characteristics of the modul are: <br>
 
 The valuation of the course consist of five individual projects. Every project is based on a indiviual dataset.
 
-## First Project: First Touch
-*Time Estimated:*   3 to 5 hours    <br>
+## First Project: 
+
+|Subproject|First Touch|
+|--|--|
+|Time Estimated|*3 to 5 hours*|
+|Current State|*completed*|
+|Actuael Time|*4.5h*|
+|Reference|*Project/1_Task*|
+
+*Time Estimated*   3 to 5 hours    <br>
 *Current State:*    completed       <br>
 *Actuael Time:*     4.5 h           <br>
 *Reference*         Project/1_Task
