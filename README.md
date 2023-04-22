@@ -1,7 +1,7 @@
 # OfficePythonProgramming
 This repository contains five project reports for the modul: 'Office Application Programming'. </br>
 
-The characteristics of the modul are:
+The characteristics of the modul are: <br>
     - learn VBA coding
     - learn Python basics
 
