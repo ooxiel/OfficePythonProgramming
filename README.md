@@ -7,8 +7,7 @@ The characteristics of the modul are: <br>
 
 The valuation of the course consist of five individual projects. Every project is based on a indiviual dataset.
 
-## First Project
-SubprojectFirst Touch
+## First Project: First Touch
 |||
 |--|--|
 |Time Estimated|*3 to 5 hours*|
@@ -37,9 +36,9 @@ To sum things up, the article shows that, both Republicans and Democrats think t
 
 This opion formation is also pictured in the given dataset, that was created as part of the article (https://github.com/fivethirtyeight/data/tree/master/mueller-polls). The dataset contains every job approval poll of Robert Mueller between start (2017) and end (2019) in his job as special councel.
 
-## Second Project
+## Second Project: Database Design
 
-|Subproject|Database Design|
+|||
 |--|--|
 |Time Estimated|*5 to 7 hours*|
 |Current State|*completed*|
@@ -54,9 +53,9 @@ This opion formation is also pictured in the given dataset, that was created as 
 ### Content
 The SQL-Database was design with the Entity-Relationship modelling language and the use of the simple Chen-Notation as well as the Min-Max-Notation. After designing the database was setup and filled and referenced with in SQL Server. The related script is written in T-SQL.
 
-## Third Project 
+## Third Project: Categorize Data
 
-|Subproject|Categorize Data|
+|||
 |--|--|
 |Time Estimated|*no time estimate*|
 |Current State|*completed*|
@@ -100,16 +99,25 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 
 
 ## Fourth Project: Optimize Database and preparation with pandas lib
-*Time Estimated:*   no time estimated <br>
-*Current State:*    in progress     <br>
-*Actuael Time:*     ---             <br>
-*Reference*         Projects/4_Task
 
-Task: <br>
+|||
+|--|--|
+|Time Estimated|*no time estimate*|
+|Current State|*in progress*|
+|Actuael Time|*---*|
+|Reference|*Project/4_Task*|
+
+
+### Task
 
     1. Last chance to optimize the database design
         a. Complete third normal form based optimizations
         b. Design the database as resources considerated as possible
+    2. Get in touch with the functionalities of possibilities of the pandas lib.
+
+### Content
+
+    Further explanation coming soon...
 
 ## Fifth Project
 *Time Estimated:*   ---             <br>
@@ -117,6 +125,11 @@ Task: <br>
 *Actuael Time:*     ---             <br>
 *Reference*         Projects/5_Task
 
-Task: <br>
+### Task
+
+    Further explanation coming soon...
+
+
+### Content
 
     Further explanation coming soon...
