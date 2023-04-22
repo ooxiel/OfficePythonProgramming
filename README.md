@@ -9,7 +9,7 @@ The valuation of the course consist of five individual projects. Every project i
 
 ## First Project: First Touch
 *Time Estimated:*   3 to 5 hours    <br>
-*Current State:*    -[X]            <br>
+*Current State:*    completed       <br>
 *Actuael Time:*     4.5 h           <br>
 *Reference*         Project/1_Task
 
