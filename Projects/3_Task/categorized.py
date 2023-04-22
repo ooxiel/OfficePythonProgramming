@@ -67,7 +67,7 @@ def createCategorieTables() -> None:
 def insertCategorieValues() -> None:
     '''used to insert categorie values into categorie tables -> categorie tables need to be created before'''
 
-    cursor.execute(f''' INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high')''') # insert new entry into categorie table
+    cursor.execute(f'''INSERT INTO dim_categorieSampleSize (categorie) VALUES ('low'), ('medium'), ('high')''') # insert new entry into categorie table
     cursor.commit() # commit changes
     cursor.execute(f''' INSERT INTO dim_categorieDate (categorie) VALUES ('1. quarter'), ('2. quarter'), ('3. quarter'), ('4. quarter')''') # insert new entry into categorie table
     cursor.commit() # commit changes
