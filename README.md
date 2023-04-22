@@ -7,24 +7,21 @@ The characteristics of the modul are: <br>
 
 The valuation of the course consist of five individual projects. Every project is based on a indiviual dataset.
 
-## First Project: 
-
-|Subproject|First Touch|
+## First Project
+SubprojectFirst Touch
+|||
 |--|--|
 |Time Estimated|*3 to 5 hours*|
 |Current State|*completed*|
 |Actuael Time|*4.5h*|
 |Reference|*Project/1_Task*|
 
-*Time Estimated*   3 to 5 hours    <br>
-*Current State:*    completed       <br>
-*Actuael Time:*     4.5 h           <br>
-*Reference*         Project/1_Task
-
-<br>
+### Task
 
     1. Analyse and understand the structure and content of a choosen dataset.
     2. Write a short report about the dataset and the article.
+
+### Content
 
 In the first project the student has to unterstand what the dataset is about. Every dataset is related to an article written by authors of FiveThirtyEight.
 In this case the article was about the acceptans of Robert Mueller and his work as special counsel in the "Report On The Investigation Into Russian Interference In The 2016 Presidential Election".
@@ -36,42 +33,45 @@ Because of rising Accusations against the manipulation, a special force was form
 He was reponsible for this investigation. 
 
 In the related article "Both Parties Think The Mueller Report Was Fair. They Just Completely Disagree On What It Says." written by Dhrumil Mehta discussed the results and reactions of the two parties.
-To sum things up, the article shows that, both Republicans and Democrats think the article was fair, but the interpretation is completly different. 
-    Republican think, that the report discharge Trump of any responsibility. 
-    Democrats think the complete opposite and demand further actions.
+To sum things up, the article shows that, both Republicans and Democrats think the article was fair, but the interpretation is completly different. Republican think, that the report discharge Trump of any responsibility. Democrats think the complete opposite and demand further actions.
 
 This opion formation is also pictured in the given dataset, that was created as part of the article (https://github.com/fivethirtyeight/data/tree/master/mueller-polls). The dataset contains every job approval poll of Robert Mueller between start (2017) and end (2019) in his job as special councel.
 
+## Second Project
 
-## Second Project: Database Design
-*Time Estimated:* &nbsp; 5 to 7 hours    <br>
-*Current State:* &nbsp; completed       <br>
-*Actuael Time:* &nbsp; 7h              <br>
-*Reference:* &nbsp; Projects/2_Task
+|Subproject|Database Design|
+|--|--|
+|Time Estimated|*5 to 7 hours*|
+|Current State|*completed*|
+|Actuael Time|*7h*|
+|Reference|*Project/2_Task*|
 
-Task: <br>
+### Task
 
     1. Use your given dataset and create an Entity-Relationship-Model (ERM).
-
-        In this task a database was design based on the given dataset by using the Entity-Relationship Modelling Language, the simple Chen-Notation and the Min-Max-Notation.
-
     2. Use the ERM to create an relational SQL-Database.
 
-        After designing the database was setup and filled and referenced with in SQL Server. The related script is written in T-SQL.
+### Content
+The SQL-Database was design with the Entity-Relationship modelling language and the use of the simple Chen-Notation as well as the Min-Max-Notation. After designing the database was setup and filled and referenced with in SQL Server. The related script is written in T-SQL.
 
-## Third Project: Categorize Data
-*Time Estimated:*   no time estimate    <br>
-*Current State:*    completed           <br>
-*Actuael Time:*     12h                 <br>
-*Reference:*        Projects/3_Task
+## Third Project 
 
-Task: <br>
+|Subproject|Categorize Data|
+|--|--|
+|Time Estimated|*no time estimate*|
+|Current State|*completed*|
+|Actuael Time|*12h*|
+|Reference|*Project/3_Task*|
+
+### Task
 
     1. Optimization of the current Database by
         a. Adding Surrogatekeys
         b. Checking for third normal form and ressource use optimization
 
     2. Create at least three categorized variables with python
+
+### Content
 
 In this task the occured to redesign the existing database of the second project. As extra, Surrogatekeys where added.
 
