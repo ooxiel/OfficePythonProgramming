@@ -14,11 +14,12 @@ The valuation of the course consist of five individual projects. Every project i
 *Reference*         Project/1_Task
 
 <br>
+
+    1. Analyse and understand the structure and content of a choosen dataset.
+    2. Write a short report about the dataset and the article.
+
 In the first project the student has to unterstand what the dataset is about. Every dataset is related to an article written by authors of FiveThirtyEight.
 In this case the article was about the acceptans of Robert Mueller and his work as special counsel in the "Report On The Investigation Into Russian Interference In The 2016 Presidential Election".
-
-    1. Analyse and understand the structure and content of a choosen dataset. <br>
-    2. Write a short report about the dataset and the article.
 
 In 2016 the American presidental election was the biggest political event. The decision was beetween Donald Trump and his opponent Hillary Clinton. 
 During the elecation russian hackers tried to manipulate voters on social platforms to positively effect votes for Donald Trump.<br>
@@ -62,19 +63,18 @@ Task: <br>
         a. Adding Surrogatekeys
         b. Checking for third normal form and ressource use optimization
 
-        In this task the occured to redesign the existing database of the second project. As extra, Surrogatekeys where added.
-
     2. Create at least three categorized variables with python
 
+In this task the occured to redesign the existing database of the second project. As extra, Surrogatekeys where added.
 
-    This second task of the third project can be seen as main task. The task contencs two subtask. First one develop three possible categories for certain attributes in the datbase. Second part: Write a python script to categorize the data and insert the categories into your database as extra attributes. <br>
+This second task of the third project can be seen as main task. The task contencs two subtask. First one develop three possible categories for certain attributes in the datbase. Second part: Write a python script to categorize the data and insert the categories into your database as extra attributes. <br>
 
-        Firt of all: What is meant with categories?
-        In this case categories mean, that you take an existing attribute of your database like Shirt Colours and aggregate them. For example Shirt colours can be green, dark-green, blue, light-blue and so on. Then you can categorize this colours in the categories green (green, dark-green) and blue (light-blue). Thats an example for a simple categorization.
+Firt of all: What is meant with categories?
+In this case categories mean, that you take an existing attribute of your database like Shirt Colours and aggregate them. For example Shirt colours can be green, dark-green, blue, light-blue and so on. Then you can categorize this colours in the categories green (green, dark-green) and blue (light-blue). Thats an example for a simple categorization.
 
-        The attributes and the transformed variables based on them were selected as shown below: Quarter, absolute/decrease or increase and sample size.
+The attributes and the transformed variables based on them were selected as shown below: Quarter, absolute/decrease or increase and sample size.
 
-    The category Quarter is used to categorize dates.
+The category Quarter is used to categorize dates.
 
     Accordingly, a timeline with specific dates, months or years can be created. With quarters, this is also possible, but only through an extremely cumbersome SQL query. The categorization of dates into quarters enables the opinions of the respondents to be captured in a more granular way than with years, but still aggregated than with months. The categorization comes from the economic sector but is also used in statistical analyses to better understand developments (see OECD, 2011, pp. 63 ff).
 
