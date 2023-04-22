@@ -39,7 +39,7 @@ This opion formation is also pictured in the given dataset, that was created as 
 *Time Estimated:*&nbsp; 5 to 7 hours    <br>
 *Current State:*&nbsp; completed       <br>
 *Actuael Time:*&nbsp; 7h              <br>
-*Reference*&nbsp; Projects/2_Task
+*Reference:*&nbsp; Projects/2_Task
 
 Task: <br>
 
