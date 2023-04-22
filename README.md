@@ -9,7 +9,7 @@ The valuation of the course consist of five individual projects. Every project i
 
 ## First Project: First Touch
 *Time Estimated:*   3 to 5 hours    <br>
-*Current State:*    completed       <br>
+*Current State:*    -[X]            <br>
 *Actuael Time:*     4.5 h           <br>
 *Reference*         Project/1_Task
 
@@ -36,10 +36,10 @@ This opion formation is also pictured in the given dataset, that was created as 
 
 
 ## Second Project: Database Design
-*Time Estimated:*&nbsp; 5 to 7 hours    <br>
-*Current State:*&nbsp; completed       <br>
-*Actuael Time:*&nbsp; 7h              <br>
-*Reference:*&nbsp; Projects/2_Task
+*Time Estimated:* &nbsp; 5 to 7 hours    <br>
+*Current State:* &nbsp; completed       <br>
+*Actuael Time:* &nbsp; 7h              <br>
+*Reference:* &nbsp; Projects/2_Task
 
 Task: <br>
 
@@ -76,21 +76,19 @@ The attributes and the transformed variables based on them were selected as show
 
 The category Quarter is used to categorize dates.
 
-    Accordingly, a timeline with specific dates, months or years can be created. With quarters, this is also possible, but only through an extremely cumbersome SQL query. The categorization of dates into quarters enables the opinions of the respondents to be captured in a more granular way than with years, but still aggregated than with months. The categorization comes from the economic sector but is also used in statistical analyses to better understand developments (see OECD, 2011, pp. 63 ff).
+Accordingly, a timeline with specific dates, months or years can be created. With quarters, this is also possible, but only through an extremely cumbersome SQL query. The categorization of dates into quarters enables the opinions of the respondents to be captured in a more granular way than with years, but still aggregated than with months. The categorization comes from the economic sector but is also used in statistical analyses to better understand developments (see OECD, 2011, pp. 63 ff).
 
-    The classic categorization is from Quarter 1 to Quarter 4 and can then be evaluated with the year. The transformed variable is applied to the Start and End attributes. The second transformed variable is the absolute increase or decrease. In the dataset, there are four different attributes that represent the opinions of the respondents in percentage from 0 to 100, as shown in the following excerpt:
+The classic categorization is from Quarter 1 to Quarter 4 and can then be evaluated with the year. The transformed variable is applied to the Start and End attributes. The second transformed variable is the absolute increase or decrease. In the dataset, there are four different attributes that represent the opinions of the respondents in percentage from 0 to 100, as shown in the following excerpt:
 
-    To convert this data into a transformed variable, the approach of absolute majority was chosen. This comes from politics and states that an absolute majority is achieved when "the voting result is at least one vote above half of all members of parliament" (German Bundestag, n.d.). Since the values are not absolute but relative, this approach was only used as a principle for categorization.
+To convert this data into a transformed variable, the approach of absolute majority was chosen. This comes from politics and states that an absolute majority is achieved when "the voting result is at least one vote above half of all members of parliament" (German Bundestag, n.d.). Since the values are not absolute but relative, this approach was only used as a principle for categorization.
 
-    For the categorization of the voting results, a result was considered an absolute majority if it is equal to or above 51 percent. Conversely, all results below 50 percent were categorized as an absolute minority. Results equal to 50 percent were categorized as Undecided. This categorization makes it possible to make immediate statements, for example, about the majority or minority of respondents who agree or disagree with a particular question. The overall picture of the opinions can be presented in an aggregated form, which may bring about new insights.
+For the categorization of the voting results, a result was considered an absolute majority if it is equal to or above 51 percent. Conversely, all results below 50 percent were categorized as an absolute minority. Results equal to 50 percent were categorized as Undecided. This categorization makes it possible to make immediate statements, for example, about the majority or minority of respondents who agree or disagree with a particular question. The overall picture of the opinions can be presented in an aggregated form, which may bring about new insights.
 
-    The categorization of Majority, Minority, and Undecided can be applied to the Approve, Disapprove, ApproveRepublican, and ApproveDemocrats attributes. An application to the Unsure attribute is conceivable but was not initially considered due to its lower informative value compared to the Approve or Disapprove positions.
+The categorization of Majority, Minority, and Undecided can be applied to the Approve, Disapprove, ApproveRepublican, and ApproveDemocrats attributes. An application to the Unsure attribute is conceivable but was not initially considered due to its lower informative value compared to the Approve or Disapprove positions.
 
-    The last attribute refers to the sample size. To evaluate the sample size not only numerically but also verbally, a grading was established. The evaluation of the sample size is useful because its size directly determines the validity of the results. The larger the sample, the less influence chance events have on the results (see Rüschemeyer, 2020). Accordingly, the sample size was divided into the categories small, medium, and large. The division of the limits is based on a box-whisker plot (see Appendix C). Based on the lower and upper quartiles, the following threshold values ​​were defined:
+The last attribute refers to the sample size. To evaluate the sample size not only numerically but also verbally, a grading was established. The evaluation of the sample size is useful because its size directly determines the validity of the results. The larger the sample, the less influence chance events have on the results (see Rüschemeyer, 2020). Accordingly, the sample size was divided into the categories small, medium, and large. The division of the limits is based on a box-whisker plot (see Appendix C). Based on the lower and upper quartiles, the following threshold values ​​were defined:
 
-    The 'low' categorization is applied when a sample contains less than 1000 respondents. The 'medium' category is applied when a sample contains between 1000 and under 1500 respondents. The 'high' category is used when a sample size of more than 1500 is present.
-
-    The categorization of small, medium, and large can be used to evaluate the validity of the surveys in a more precise manner. Additionally, results with a small sample size can be better filtered to increase the validity of other statistical analyses.
+The 'low' categorization is applied when a sample contains less than 1000 respondents. The 'medium' category is applied when a sample contains between 1000 and under 1500 respondents. The 'high' category is used when a sample size of more than 1500 is present.The categorization of small, medium, and large can be used to evaluate the validity of the surveys in a more precise manner. Additionally, results with a small sample size can be better filtered to increase the validity of other statistical analyses.
 
 
 ## Fourth Project: Optimize Database and preparation with pandas lib
