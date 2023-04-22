@@ -36,10 +36,10 @@ This opion formation is also pictured in the given dataset, that was created as 
 
 
 ## Second Project: Database Design
-*Time Estimated:*   5 to 7 hours    <br>
-*Current State:*    completed       <br>
-*Actuael Time:*     7h              <br>
-*Reference*         Projects/2_Task
+*Time Estimated:*   &nbsp; 5 to 7 hours    <br>
+*Current State:*    &nbsp; completed       <br>
+*Actuael Time:*     &nbsp; 7h              <br>
+*Reference*         &nbsp; Projects/2_Task
 
 Task: <br>
 
@@ -52,10 +52,10 @@ Task: <br>
         After designing the database was setup and filled and referenced with in SQL Server. The related script is written in T-SQL.
 
 ## Third Project: Categorize Data
-*Time Estimated:*   <dd>no time estimate</dd><br>
-*Current State:*    <dd>completed           <br>
-*Actuael Time:*     <dd>12h                 <br>
-*Reference:*        <dd>Projects/3_Task
+*Time Estimated:*   no time estimate    <br>
+*Current State:*    completed           <br>
+*Actuael Time:*     12h                 <br>
+*Reference:*        Projects/3_Task
 
 Task: <br>
 
