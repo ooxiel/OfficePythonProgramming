@@ -1,14 +1,23 @@
 '''
-Following Code was use as a preparation for the analysis and presentation of the data.
+Following Code was used as a preparation for the analysis and presentation of the data.
 It is used get in touch with certain functions and methods of the pandas library.
 '''
 
 # Importing the libraries
 import pandas as pd
 from datetime import datetime
+import pip._internal
 
-# Importing the dataset
-df = pd.read_csv('C:\\Users\\becke\\OfficePythonProgramming\\Projects\\Ressources\\mueller-approval-polls.csv')
+# Installing the libraries automatically, if not already installed
+# First tried it with a requirements.txt file, but it didn't work because of path possible path issues on different machines
+
+pip._internal.main(['install', 'pandas'])
+pip._internal.main(['install', 'datetime'])
+
+
+# Importing the dataset with usecols to reduce the size of the dataset
+df = pd.read_csv('C:\\Users\\becke\\OfficePythonProgramming\\Projects\\Ressources\\mueller-approval-polls.csv', usecols=['Pollster', 'Start', 'End', 'Text', 'Approve', 'Approve (Republican)','Approve (Democrat)','Url'])
+
 
 # Variable 1: Mean of Approve columns
 def meanApprove(df):
@@ -70,11 +79,17 @@ def getDuration(df):
 
     for i in df.index:
         x = datetime.strptime(df.loc[i, 'End'], '%m/%d/%y') - datetime.strptime(df.loc[i, 'Start'], '%m/%d/%y')
-        resultList.append(x.days)
+
+        if(x.days < 0):
+           resultList.append(x.days * -1)
+        else:
+            resultList.append(x.days)
 
     return resultList
 
 print(getDuration(df))
+
+df['Duration'] = getDuration(df)
 
 # Variable 4: Mean of Approve column
 def topPollster(df):
@@ -128,12 +143,3 @@ def repubVsDemocrat(df):
     return df2
 
 print(repubVsDemocrat(df))
-
-# Variable 8: Question with most approval by weekday
-def mostApprovalByWeekday(df):
-    df2 = pd.DataFrame(df.groupby('weekday')['Approve'].mean().sort_values(ascending=False))
-    df2 = df2.head(1)
-
-    return df2
-
-print(mostApprovalByWeekday(df))
