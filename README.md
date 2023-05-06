@@ -1,9 +1,11 @@
 # OfficePythonProgramming
 This repository contains five project reports for the modul: 'Office Application Programming'. </br>
 
-The characteristics of the modul are: <br>
-    - learn VBA coding                <br>
-    - learn Python basics             <br>
+The characteristics of the modul are:
+
+    learn VBA basic functionalities
+    learn Python as alternative to VBA and Excel
+    first steps in analyzing Datasets and working with them             
 
 The valuation of the course consist of five individual projects. Every project is based on a indiviual dataset.
 
@@ -117,7 +119,7 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 
 ### Content
 
-    The background of this task was to get more in touch pandas and gain confidients in it's use. The dataset was import and new findings were made. Just a little task to play around.
+The background of this task was to get more in touch pandas and gain confidients in it's use. The dataset was import and new findings were made. Just a little task to play around.
 
 ## Fifth Project
 |||
