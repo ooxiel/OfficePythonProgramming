@@ -104,7 +104,7 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 |--|--|
 |Time Estimated|*no time estimate*|
 |Current State|*in progress*|
-|Actuael Time|*---*|
+|Actuael Time|*4h*|
 |Reference|*Project/4_Task*|
 
 
@@ -117,13 +117,15 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 
 ### Content
 
-    Further explanation coming soon...
+    The background of this task was to get more in touch pandas and gain confidients in it's use. The dataset was import and new findings were made. Just a little task to play around.
 
 ## Fifth Project
-*Time Estimated:*   ---             <br>
-*Current State:*    not started     <br>
-*Actuael Time:*     ---             <br>
-*Reference*         Projects/5_Task
+|||
+|--|--|
+|Time Estimated|*no time estimate*|
+|Current State|*not started*|
+|Actuael Time|*---*|
+|Reference|*Project/5_Task*|
 
 ### Task
 
