@@ -1,4 +1,4 @@
-# OfficePythonProgramming
+# OfficePythonProgramming💻
 This repository contains five project reports for the modul: 'Office Application Programming'. </br>
 
 The characteristics of the modul are:
@@ -8,6 +8,9 @@ The characteristics of the modul are:
     first steps in analyzing Datasets and working with them             
 
 The valuation of the course consist of five individual projects. Every project is based on a indiviual dataset.
+The indivual projects are collected / documented in an data report, which keeps track of all projects. The complete report is deliveried as part of the fifth project.
+
+Every project is verbally and codevise documented in this repository. The full report can't be published on here due to data protection reasons, but to still provide some context to the task a content section was added to every project. This section contains an excerpt or further explanation for every project.
 
 ## First Project: First Touch
 |||
@@ -105,7 +108,7 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 |||
 |--|--|
 |Time Estimated|*no time estimate*|
-|Current State|*in progress*|
+|Current State|*completed*|
 |Actuael Time|*4h*|
 |Reference|*Project/4_Task*|
 
@@ -119,21 +122,27 @@ The 'low' categorization is applied when a sample contains less than 1000 respon
 
 ### Content
 
-The background of this task was to get more in touch pandas and gain confidients in it's use. The dataset was import and new findings were made. Just a little task to play around.
+The background of this task was to get more in touch with pandas and gain confidients in it's use. The dataset was import and new findings were made. Just a little task to play around.
 
 ## Fifth Project
 |||
 |--|--|
 |Time Estimated|*no time estimate*|
-|Current State|*not started*|
+|Current State|*in progress*|
 |Actuael Time|*---*|
 |Reference|*Project/5_Task*|
 
 ### Task
 
-    Further explanation coming soon...
-
+    1. Mathplotlib / Seaborn
+        a.  Visualize a choosen part of your dataset with axes
+            First has to be an Heatmap
+            Second can be individually choosen
+            Third can be everything except Scatterplot, bar chart or line diagramm
+        b. export and interpret the results contentwise
+    2. VBA
 
 ### Content
 
-    Further explanation coming soon...
+
+
