@@ -1,4 +1,4 @@
-# OfficePythonProgramming💻
+# OfficePythonProgramming
 This repository contains five project reports for the modul: 'Office Application Programming'. </br>
 
 The characteristics of the modul are:
@@ -11,6 +11,21 @@ The valuation of the course consist of five individual projects. Every project i
 The indivual projects are collected / documented in an data report, which keeps track of all projects. The complete report is deliveried as part of the fifth project.
 
 Every project is verbally and codevise documented in this repository. The full report can't be published on here due to data protection reasons, but to still provide some context to the task a content section was added to every project. This section contains an excerpt or further explanation for every project.
+
+```mermaid
+gant
+    dateFormat  YYYY-MM-DD
+    title       Adding GANTT diagram functionality to mermaid
+    excludes    weekends
+    %% (`excludes` accepts specific dates in YYYY-MM-DD format, days of the week ("sunday") or "weekends", but not the word "weekdays".)
+
+    section A section
+    First Project: First Touch                                          :done,      des1, 2014-01-06,2014-01-08
+    Second Project: Database Design                                     :done,    des2, 2014-01-09, 3d
+    Third Project: Categorize Data                                      :done,      des3, after des2, 5d
+    Fourth Project: Optimize Database and preparation with pandas lib   :done,      des4, after des3, 5d
+    Fifth Project:                                                      :active,    
+```
 
 ## First Project: First Touch
 |||
@@ -145,11 +160,3 @@ The background of this task was to get more in touch with pandas and gain confid
 ### Content
 
 
-
-```mermaid
-graph LR
-A[Hard edge] -->B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-```
