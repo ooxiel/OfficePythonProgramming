@@ -64,7 +64,7 @@ The SQL-Database was design with the Entity-Relationship modelling language and 
 |--|--|
 |Time Estimated|*no time estimate*|
 |Current State|*completed*|
-|Actuael Time|*12h*|
+|Actuael Time|*16h*|
 |Reference|*Project/3_Task*|
 
 ### Task
@@ -146,3 +146,10 @@ The background of this task was to get more in touch with pandas and gain confid
 
 
 
+```mermaid
+graph LR
+A[Hard edge] -->B(Round edge)
+    B --> C{Decision}
+    C -->|One| D[Result one]
+    C -->|Two| E[Result two]
+```
