@@ -136,11 +136,10 @@ The background of this task was to get more in touch with pandas and gain confid
 
     1. Mathplotlib / Seaborn
         a.  Visualize a choosen part of your dataset with axes
-            First has to be an Heatmap
-            Second can be individually choosen
-            Third can be everything except Scatterplot, bar chart or line diagramm
+            1. First has to be an Heatmap
+            2. Second can be individually choosen
+            3. Third can be everything except Scatterplot, bar chart or line diagramm
         b. export and interpret the results contentwise
-    2. VBA
 
 ### Content
 
