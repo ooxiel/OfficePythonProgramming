@@ -12,6 +12,8 @@ The indivual projects are collected / documented in an data report, which keeps 
 
 Every project is verbally and codevise documented in this repository. The full report can't be published on here due to data protection reasons, but to still provide some context to the task a content section was added to every project. This section contains an excerpt or further explanation for every project.
 
+*Note:* To run the writte code without any issues, a 'requirements.txt'-file was initialized to create an virtual environment.
+
 ## First Project: First Touch
 |||
 |--|--|

@@ -1,0 +1,7 @@
+Pandas==latest
+Numpy==latest
+Matplotlib==latest
+Seaborn==latest
+Os==latest
+Warnings==latest
+Requests==latest
