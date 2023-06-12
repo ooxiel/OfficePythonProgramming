@@ -1,0 +1,137 @@
+Option Explicit
+
+Sub Main(ByVal org As String)
+
+    Call checkOrg(org)
+
+End Sub
+
+
+Private Sub checkOrg(ByVal org As String)
+
+    Dim lngIndex As Long
+    Dim lngIndexMax As Long
+    Dim ws As Worksheets
+    
+    Dim noOrg As Boolean
+    noOrg = True
+    
+    Dim orgPersist As ListObject
+    Set orgPersist = Sheet12.ListObjects("org_uebersicht")
+    
+    Dim newRow As ListRow
+    Set newRow = orgPersist.ListRows.Add
+    
+    
+    Dim wsName As String
+    
+    lngIndexMax = orgPersist.DataBodyRange.Rows.Count
+    
+    For lngIndex = 1 To lngIndexMax
+            
+        If orgPersist.DataBodyRange(lngIndex, 1) = org Then
+            noOrg = False
+        End If
+      
+    Next lngIndex
+    
+    '--------------------------
+    
+       
+        For lngIndex = 1 To lngIndexMax
+            
+            If orgPersist.DataBodyRange(lngIndex, 1) = org Then
+                wsName = orgPersist.DataBodyRange(lngIndex, 2)
+                Sheets(wsName).Activate
+            End If
+        
+        Next lngIndex
+    
+    '--------------------------
+    
+    If noOrg = True Then
+        newRow.Range(, 1) = org
+                
+        If Left(org, 1) = "'" Then org = Mid(org, 2)
+                org = VBA.Replace(org, "/", "-")
+                org = VBA.Replace(org, "\", "-")
+                org = VBA.Replace(org, ":", "-")
+                org = VBA.Replace(org, "*", "-")
+                org = VBA.Replace(org, "?", "-")
+                org = VBA.Replace(org, "[", "-")
+                org = VBA.Replace(org, "]", "-")
+        
+        newRow.Range(, 2) = org
+        Sheets.Add.Name = org
+        
+        ThisWorkbook.ActiveSheet.ListObjects.Add
+        ThisWorkbook.ActiveSheet.ListObjects(1).Name = "table_" & org
+        
+        Dim tempList As ListObject
+        Set tempList = ThisWorkbook.ActiveSheet.ListObjects(1)
+        
+                
+        Dim mainList As ListObject
+        Set mainList = Tabelle1.ListObjects("table_export_DB")
+        
+        Dim headerCollection As Variant
+        headerCollection = mainList.HeaderRowRange
+        
+        
+        'Create all Columns, based on main list Object
+        Dim iNum1 As Integer
+        lngIndexMax = mainList.DataBodyRange.Columns.Count
+        
+        ' Add every Column in main list object to current list
+        For iNum1 = 1 To lngIndexMax
+        
+                tempList.ListColumns.Add
+                tempList.ListColumns(iNum1).Name = headerCollection(1, iNum1)
+            
+        Next iNum1
+        
+        ' When first create list object on page there already is an init column
+        ' this is deleted with the following line to get a clean result
+        ThisWorkbook.ActiveSheet.ListObjects(1).ListColumns(lngIndexMax + 1).Delete
+        
+        '------------------
+        
+        Dim newRowWS As ListRow
+        Set newRowWS = ThisWorkbook.ActiveSheet.ListObjects(1).ListRows.Add
+        
+        Dim theMatch As Variant
+        Dim temp As Long
+        Dim iNum12 As Long
+        
+        Dim lngIndexMax1 As Long
+        Dim lngIndexMax2 As Long
+        Dim curRow As Long
+        
+        lngIndexMax1 = mainList.DataBodyRange.Rows.Count
+        lngIndexMax2 = mainList.DataBodyRange.Columns.Count
+            
+        For iNum1 = 1 To lngIndexMax1
+            
+            If mainList.DataBodyRange(iNum1, 2).value = orgPersist.DataBodyRange(lngIndex - 1, 1) Then
+                temp = mainList.DataBodyRange(iNum1, 2).Row
+                temp = temp - 1
+                
+                curRow = tempList.DataBodyRange.Rows.Count + 1
+                
+                For iNum12 = 1 To lngIndexMax2
+                    
+                    newRowWS.Range(curRow, iNum12).value = mainList.DataBodyRange(temp, iNum12).value
+                
+                Next iNum12
+                
+                
+            End If
+
+        Next iNum1
+        
+    Else
+        Sheets(wsName).Activate
+    End If
+        
+End Sub
+

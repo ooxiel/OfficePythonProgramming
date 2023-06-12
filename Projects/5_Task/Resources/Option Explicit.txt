@@ -1,0 +1,229 @@
+Option Explicit
+Sub delete_spread()
+
+    Dim orgPersist As ListObject
+        Set orgPersist = Sheet12.ListObjects("org_uebersicht")
+    
+    Dim guideIndex As Long
+    Dim maxIndex As Long
+    maxIndex = orgPersist.DataBodyRange.Rows.Count
+    
+    
+    For guideIndex = 1 To maxIndex
+        
+        If orgPersist.DataBodyRange(1, 2).value = "" Then
+           orgPersist.ListRows(1).Delete
+        Else
+            Application.DisplayAlerts = False
+            Sheets(orgPersist.DataBodyRange(1, 2).value).Delete
+            Application.DisplayAlerts = True
+        
+            orgPersist.ListRows(1).Delete
+            
+        End If
+        
+    Next guideIndex
+    
+    orgPersist.ListRows.Add
+
+End Sub
+
+Sub spread()
+    
+    Dim orgPersist As ListObject
+        Set orgPersist = Sheet12.ListObjects("org_Uebersicht")
+    
+    Dim guideIndex As Long
+    Dim maxIndex As Long
+    
+    maxIndex = orgPersist.DataBodyRange.Rows.Count
+    
+    If maxIndex = 0 Then
+        maxIndex = 2
+    End If
+    
+    For guideIndex = 1 To maxIndex
+        
+        If orgPersist.DataBodyRange(1, 2).value = "" Then
+           orgPersist.ListRows(1).Delete
+        Else
+            Application.DisplayAlerts = False
+                Sheets(orgPersist.DataBodyRange(1, 2).value).Delete
+            Application.DisplayAlerts = True
+        
+            orgPersist.ListRows(1).Delete
+        End If
+        
+    Next guideIndex
+    
+    orgPersist.ListRows.Add
+    
+    Call update
+
+End Sub
+
+Private Sub update()
+    
+    'Main-List -> Sheet: export_DB
+    Dim mainList As ListObject
+        Set mainList = Tabelle1.ListObjects("table_export_DB")
+        
+    'very hidden sheet, that contains every organization name and related sheet name
+    'used to persists this information and reducing errors
+    Dim orgPersist As ListObject
+        Set orgPersist = Sheet12.ListObjects("org_uebersicht")
+    
+    'Boolean that is used to determined if an organization name is already in the persist-list or not
+    Dim noOrg As Boolean
+    
+    Dim orgName As String
+    Dim orgNameExistsRow As Long
+    
+    Dim newOrgToList As ListRow
+    Set newOrgToList = orgPersist.ListRows.Add
+        
+    'Variables used to go through For-Loop
+    Dim guideIndex1 As Long
+    Dim guideIndex2 As Long
+    
+    Dim collector As New Collection
+    Dim collCounter As Long
+    
+       
+    'For-Loop, which used to check if an organisation exists in persist-list
+    'If yes -> noOrg set False  -> nothing
+    'If no  -> noOrg set True   -> org name added and sheet init started
+    
+    Dim suppIndex1 As Long
+    suppIndex1 = 2
+       
+    
+    For guideIndex1 = 1 To mainList.DataBodyRange.Rows.Count
+    
+        noOrg = True
+
+    
+        For guideIndex2 = 1 To suppIndex1
+            
+            If orgPersist.DataBodyRange(guideIndex2, 1) = mainList.DataBodyRange(guideIndex1, 2) Then
+                noOrg = False
+            Else
+                orgName = mainList.DataBodyRange(guideIndex1, 2)
+            End If
+             
+        Next guideIndex2
+        
+        If noOrg = True Then
+            orgPersist.DataBodyRange(suppIndex1 - 1, 1) = orgName
+            
+            If Left(orgName, 1) = "'" Then orgName = Mid(orgName, 2)
+                        orgName = VBA.Replace(orgName, "/", "-")
+                        orgName = VBA.Replace(orgName, "\", "-")
+                        orgName = VBA.Replace(orgName, ":", "-")
+                        orgName = VBA.Replace(orgName, "*", "-")
+                        orgName = VBA.Replace(orgName, "?", "-")
+                        orgName = VBA.Replace(orgName, "[", "-")
+                        orgName = VBA.Replace(orgName, "]", "-")
+                
+            orgPersist.DataBodyRange(suppIndex1 - 1, 2) = orgName
+            
+            Call initSheet(orgName, suppIndex1 - 1)
+            
+            suppIndex1 = suppIndex1 + 1
+            
+        End If
+        
+    Next guideIndex1
+    
+    
+    For collCounter = 1 To collector.Count
+        
+               newOrgToList.Range(, 1) = orgName
+            
+                
+    Next collCounter
+        
+End Sub
+
+Private Sub initSheet(ByVal orgName As String, ByVal suppIndex1 As Long)
+    
+    'Main-List -> Sheet: export_DB
+    Dim mainList As ListObject
+        Set mainList = Tabelle1.ListObjects("table_export_DB")
+        
+    'very hidden sheet, that contains every organization name and related sheet name
+    'used to persists this information and reducing errors
+    Dim orgPersist As ListObject
+        Set orgPersist = Sheet12.ListObjects("org_uebersicht")
+
+    Sheets.Add.Name = orgName
+    ThisWorkbook.ActiveSheet.ListObjects.Add
+    ThisWorkbook.ActiveSheet.ListObjects(1).Name = "table_" & orgName
+            
+    Dim tempList As ListObject
+        Set tempList = ThisWorkbook.ActiveSheet.ListObjects(1)
+                
+    Dim headerCollection As Variant
+        headerCollection = mainList.HeaderRowRange
+                
+                
+    'Create all Columns, based on main list Object
+    Dim iNum1 As Integer
+    Dim rowMax As Long
+        rowMax = mainList.DataBodyRange.Columns.Count
+                
+    ' Add every Column in main list object to current list
+    For iNum1 = 1 To rowMax
+                
+        tempList.ListColumns.Add
+        tempList.ListColumns(iNum1).Name = headerCollection(1, iNum1)
+                    
+    Next iNum1
+                
+    ' When first create list object on page there already is an init column
+    ' this is deleted with the following line to get a clean result
+    ThisWorkbook.ActiveSheet.ListObjects(1).ListColumns(rowMax + 1).Delete
+            
+            
+    '---------------------------------
+            
+    Dim newRowWS As ListRow
+        Set newRowWS = ThisWorkbook.ActiveSheet.ListObjects(1).ListRows.Add
+        
+    Dim temp As Long
+    Dim iNum12 As Long
+    
+    Dim lngIndexMax1 As Long
+    Dim lngIndexMax2 As Long
+    Dim curRow As Long
+                
+    lngIndexMax1 = mainList.DataBodyRange.Rows.Count
+    lngIndexMax2 = mainList.DataBodyRange.Columns.Count
+    
+    
+    Debug.Print suppIndex1
+                            
+    For iNum1 = 1 To lngIndexMax1
+    
+        If mainList.DataBodyRange(iNum1, 2).value = orgPersist.DataBodyRange(suppIndex1, 1).value Then
+            temp = mainList.DataBodyRange(iNum1, 2).Row
+            temp = temp - 1
+                            
+            curRow = tempList.DataBodyRange.Rows.Count + 1
+                            
+            For iNum12 = 1 To lngIndexMax2
+            
+                newRowWS.Range(curRow, iNum12).value = mainList.DataBodyRange(temp, iNum12).value
+                            
+            Next iNum12
+                                    
+        End If
+        
+    Next iNum1
+    
+    ThisWorkbook.ActiveSheet.ListObjects(1).ListRows(1).Delete
+
+End Sub
+
+
+

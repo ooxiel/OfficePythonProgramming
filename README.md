@@ -131,7 +131,7 @@ The background of this task was to get more in touch with pandas and gain confid
 |--|--|
 |Time Estimated|*no time estimate*|
 |Current State|*in progress*|
-|Actuael Time|*---*|
+|Actuael Time|*28h*|
 |Reference|*Project/5_Task*|
 
 ### Task
